@@ -6,6 +6,7 @@ out/**/*.map
 node_modules/**
 coverage/**
 *.vsix
+*.code-workspace
 *.log
 .gitignore
 eslint.config.mjs

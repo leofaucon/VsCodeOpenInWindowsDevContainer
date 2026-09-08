@@ -2,9 +2,13 @@
   "name": "open-in-windows-devcontainer",
   "displayName": "Open in Windows",
   "description": "Open Dev Container files in Windows Explorer or copy their Windows paths.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "leofaucon",
+  "author": {
+    "name": "Leo Faucon"
+  },
   "license": "MIT",
+  "icon": "images/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/leofaucon/VsCodeOpenInWindowsDevContainer.git"
@@ -64,7 +68,7 @@
     "lint": "eslint .",
     "test": "npm run compile && mocha --ui tdd \"out/test/**/*.test.js\"",
     "check": "npm run lint && npm test",
-    "package:vsix": "npm run check && vsce package --out open-in-windows-devcontainer-0.1.0.vsix"
+    "package:vsix": "npm run check && vsce package --out open-in-windows-devcontainer-0.1.1.vsix"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

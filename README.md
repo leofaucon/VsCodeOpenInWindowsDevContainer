@@ -43,16 +43,24 @@ The extension supports native sources such as `C:\Projects\sample` and the
 Docker Desktop forms `/host_mnt/c/Projects/sample` and
 `/run/desktop/mnt/host/c/Projects/sample`.
 
-## Install manually without the Marketplace
+## Build and package
 
-This project produces a standalone VSIX. Build it from the repository root:
+Use Node.js `^22.13.0 || >=24`; the minimum supported version is 22.13.0,
+as required by the locked development tooling.
+
+Install the exact locked dependencies and create the standalone VSIX from the
+repository root:
 
 ```powershell
 npm ci
 npm run package:vsix
 ```
 
-The result is `open-in-windows-devcontainer-0.1.0.vsix`.
+`npm run package:vsix` runs lint, compiles the TypeScript sources, executes the
+tests, and then packages the extension. The result is
+`open-in-windows-devcontainer-0.1.1.vsix`.
+
+## Install manually without the Marketplace
 
 In VS Code or Cursor:
 
@@ -65,8 +73,8 @@ In VS Code or Cursor:
 The command-line equivalents are:
 
 ```powershell
-code --install-extension .\open-in-windows-devcontainer-0.1.0.vsix
-cursor --install-extension .\open-in-windows-devcontainer-0.1.0.vsix
+code --install-extension .\open-in-windows-devcontainer-0.1.1.vsix --force
+cursor --install-extension .\open-in-windows-devcontainer-0.1.1.vsix --force
 ```
 
 The extension must be installed on the local/host side of the Dev Container
@@ -172,14 +180,13 @@ If the commands are missing, confirm that:
 
 ## Development
 
-Install exact locked dependencies and run all checks:
+For a faster development loop after `npm ci`, compile, lint, and test without
+creating a VSIX:
 
 ```powershell
-npm ci
 npm run compile
 npm run lint
 npm test
-npm run package:vsix
 ```
 
 Press `F5` in VS Code or Cursor to launch an Extension Development Host using

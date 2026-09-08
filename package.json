@@ -1,0 +1,80 @@
+{
+  "name": "open-in-windows-devcontainer",
+  "displayName": "Open in Windows",
+  "description": "Open Dev Container files in Windows Explorer or copy their Windows paths.",
+  "version": "0.1.0",
+  "publisher": "leofaucon",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leofaucon/VsCodeOpenInWindowsDevContainer.git"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "dev containers",
+    "docker",
+    "windows",
+    "explorer"
+  ],
+  "extensionKind": [
+    "ui"
+  ],
+  "activationEvents": [
+    "onCommand:openInWindowsDevContainer.openInExplorer",
+    "onCommand:openInWindowsDevContainer.copyWindowsPath"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "openInWindowsDevContainer.openInExplorer",
+        "title": "Open in Windows Explorer",
+        "category": "Open in Windows"
+      },
+      {
+        "command": "openInWindowsDevContainer.copyWindowsPath",
+        "title": "Copy Windows Path",
+        "category": "Open in Windows"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "openInWindowsDevContainer.openInExplorer",
+          "when": "remoteName == dev-container",
+          "group": "navigation@100"
+        },
+        {
+          "command": "openInWindowsDevContainer.copyWindowsPath",
+          "when": "remoteName == dev-container",
+          "group": "navigation@101"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint .",
+    "test": "npm run compile && mocha --ui tdd \"out/test/**/*.test.js\"",
+    "check": "npm run lint && npm test",
+    "package:vsix": "npm run check && vsce package --out open-in-windows-devcontainer-0.1.0.vsix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^26.5.0",
+    "@types/vscode": "1.90.0",
+    "@vscode/vsce": "^3.9.2",
+    "eslint": "^10.10.0",
+    "mocha": "^12.0.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.0"
+  }
+}

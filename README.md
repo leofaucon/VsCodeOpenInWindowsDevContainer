@@ -23,6 +23,8 @@ the Windows host rather than inside the container.
 - **Copy Windows Path** writes the resolved native path to the system clipboard.
 - Both commands appear in the Explorer context menu only when
   `remoteName == dev-container`.
+- Both commands are available from the Command Palette. They use the active
+  remote editor or prompt for a file or folder when no remote editor is active.
 - The current container is correlated with the remote window instead of being
   selected by list order.
 - Nested mounts use the longest matching container destination.
@@ -58,7 +60,7 @@ npm run package:vsix
 
 `npm run package:vsix` runs lint, compiles the TypeScript sources, executes the
 tests, and then packages the extension. The result is
-`open-in-windows-devcontainer-0.1.1.vsix`.
+`open-in-windows-devcontainer-0.1.3.vsix`.
 
 ## Install manually without the Marketplace
 
@@ -73,8 +75,8 @@ In VS Code or Cursor:
 The command-line equivalents are:
 
 ```powershell
-code --install-extension .\open-in-windows-devcontainer-0.1.1.vsix --force
-cursor --install-extension .\open-in-windows-devcontainer-0.1.1.vsix --force
+code --install-extension .\open-in-windows-devcontainer-0.1.3.vsix --force
+cursor --install-extension .\open-in-windows-devcontainer-0.1.3.vsix --force
 ```
 
 The extension must be installed on the local/host side of the Dev Container
@@ -94,6 +96,10 @@ cursor --uninstall-extension leofaucon.open-in-windows-devcontainer
 1. Open a folder in a Dev Container.
 2. Right-click a file or folder in the Explorer.
 3. Select **Open in Windows Explorer** or **Copy Windows Path**.
+
+Alternatively, run either command from the Command Palette. The command uses
+the active Dev Container editor when available; otherwise it opens a remote
+file and folder picker.
 
 For a file, Explorer opens its containing folder and selects the file. For a
 directory, Explorer opens the directory directly.
@@ -143,7 +149,13 @@ Expected failures include:
   source path, and the container's current mount configuration.
 
 Detailed command diagnostics are available in the **Open in Windows** output
-channel.
+channel. The channel opens automatically when either command starts and traces
+resource selection, remote filesystem access, Docker correlation, path
+resolution, clipboard access, and Windows Explorer launch.
+
+To inspect these diagnostics manually, open **View > Output**, then select
+**Open in Windows** from the channel selector in the Output panel. Run either
+extension command first if the channel is not listed yet.
 
 ## Limitations
 
@@ -177,6 +189,15 @@ If the commands are missing, confirm that:
 - the current window reports a Dev Container connection;
 - the extension is enabled and installed locally;
 - the desktop editor was reloaded after VSIX installation.
+
+Cursor's Agents Window uses a lightweight **Files** tab rather than the
+standard VS Code Explorer, so `explorer/context` menu contributions may not
+appear there. Use the Command Palette or open Cursor's classic Editor Window
+for the Explorer context menu.
+
+The **Open Editors** context menu is also unsupported because VS Code does not
+expose a public menu contribution point for that view. Use the File Explorer
+context menu or run a command from the Command Palette with the editor active.
 
 ## Development
 

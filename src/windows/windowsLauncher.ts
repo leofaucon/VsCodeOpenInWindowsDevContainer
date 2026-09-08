@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import path from "node:path";
 
 export class WindowsExplorerError extends Error {
     public constructor(message: string, options?: ErrorOptions) {
@@ -14,13 +15,18 @@ export async function openInWindowsExplorer(
     windowsPath: string,
     isDirectory: boolean,
 ): Promise<void> {
-    const args = isDirectory ? [windowsPath] : [`/select,${windowsPath}`];
+    const explorerPath = path.join(process.env.SystemRoot ?? String.raw`C:\Windows`, "explorer.exe");
+
+    // Explorer parses its raw command line instead of following normal argv rules.
+    const quotedWindowsPath = `"${windowsPath}"`;
+    const args = isDirectory ? [quotedWindowsPath] : [`/select,${quotedWindowsPath}`];
 
     await new Promise<void>((resolve, reject) => {
-        const child = spawn("explorer.exe", args, {
+        const child = spawn(explorerPath, args, {
             detached: true,
             stdio: "ignore",
-            windowsHide: true,
+            windowsHide: false,
+            windowsVerbatimArguments: true,
         });
 
         child.once("error", (error) => {

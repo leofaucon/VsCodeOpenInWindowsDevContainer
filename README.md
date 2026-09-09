@@ -1,9 +1,10 @@
 # Open in Windows
 
-Open in Windows is a small VS Code and Cursor extension for Windows users working
-inside a Dev Container. It maps a selected container file or folder back to the
-effective Windows bind mount, then either opens it in Windows Explorer or copies
-its native Windows path.
+VS Code extension to open Dev Container files in Windows Explorer or copy their
+native Windows paths. For Windows users working inside a Dev Container, it uses
+Docker to inspect the active container, finds the matching bind mount, and maps
+the selected file or folder back to its host path before opening Explorer or
+copying the path to the clipboard.
 
 For example:
 
@@ -15,6 +16,24 @@ Windows:   C:\Users\me\Projects\sample\src\index.ts
 The extension ID is `leofaucon.open-in-windows-devcontainer`. The extension is
 declared as a UI extension, so its Node.js process and Docker CLI calls run on
 the Windows host rather than inside the container.
+
+## Install
+
+Install from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=leofaucon.open-in-windows-devcontainer):
+
+1. Open the Extensions view in VS Code or Cursor.
+2. Search for **Open in Windows**.
+3. Install the extension published by **Leo Faucon**.
+
+Or run **Quick Open** (`Ctrl+P`) and paste:
+
+```text
+ext install leofaucon.open-in-windows-devcontainer
+```
+
+The extension must be installed on the local/host side of the Dev Container
+window. Do not install it only in the container. In the Extensions view, use the
+**Local - Installed** section to verify its location.
 
 ## MVP features
 
@@ -62,7 +81,10 @@ npm run package:vsix
 tests, and then packages the extension. The result is
 `open-in-windows-devcontainer-0.1.3.vsix`.
 
-## Install manually without the Marketplace
+## Install from VSIX
+
+Use this path for local development builds or when Marketplace access is
+unavailable.
 
 In VS Code or Cursor:
 
@@ -79,9 +101,7 @@ code --install-extension .\open-in-windows-devcontainer-0.1.3.vsix --force
 cursor --install-extension .\open-in-windows-devcontainer-0.1.3.vsix --force
 ```
 
-The extension must be installed on the local/host side of the Dev Container
-window. Do not install it only in the container. In the Extensions view, use the
-**Local - Installed** section to verify its location.
+The same host-side installation rules apply as in **Install** above.
 
 To update, build a VSIX with the newer version and run the same install command;
 the editor replaces the installed version. To uninstall:

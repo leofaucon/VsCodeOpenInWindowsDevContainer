@@ -2,7 +2,7 @@
   "name": "open-in-windows-devcontainer",
   "displayName": "Open in Windows",
   "description": "Open Dev Container files in Windows Explorer or copy their Windows paths.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "publisher": "leofaucon",
   "author": {
     "name": "Leo Faucon"
@@ -46,6 +46,18 @@
         "category": "Open in Windows"
       }
     ],
+    "keybindings": [
+      {
+        "command": "openInWindowsDevContainer.openInExplorer",
+        "key": "shift+alt+o",
+        "when": "isWindows && remoteName == dev-container"
+      },
+      {
+        "command": "openInWindowsDevContainer.copyWindowsPath",
+        "key": "shift+alt+p",
+        "when": "isWindows && remoteName == dev-container"
+      }
+    ],
     "menus": {
       "explorer/context": [
         {
@@ -68,7 +80,7 @@
     "lint": "eslint .",
     "test": "npm run compile && mocha --ui tdd \"out/test/**/*.test.js\"",
     "check": "npm run lint && npm test",
-    "package:vsix": "npm run check && vsce package --out open-in-windows-devcontainer-0.1.3.vsix"
+    "package:vsix": "npm run check && vsce package"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

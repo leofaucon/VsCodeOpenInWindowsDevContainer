@@ -121,6 +121,15 @@ Alternatively, run either command from the Command Palette. The command uses
 the active Dev Container editor when available; otherwise it opens a remote
 file and folder picker.
 
+The commands also have default keyboard shortcuts in Windows Dev Container
+windows:
+
+- `Shift+Alt+O`: **Open in Windows Explorer**
+- `Shift+Alt+P`: **Copy Windows Path**
+
+To change or disable them, open **Keyboard Shortcuts** (`Ctrl+K Ctrl+S`) and
+search for **Open in Windows**.
+
 For a file, Explorer opens its containing folder and selects the file. For a
 directory, Explorer opens the directory directly.
 

@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.1.4 - 2026-09-09
+
+### Added
+
+- Added customizable default keyboard shortcuts for opening a resource in
+  Windows Explorer (`Shift+Alt+O`) and copying its Windows path
+  (`Shift+Alt+P`).
+
 ## 0.1.3 - 2026-09-08
 
 ### Added
